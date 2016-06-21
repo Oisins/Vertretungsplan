@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import mock
-import VertretungPlan
 import unittest
 import os
+import VertretungPlan
 
 os.chdir("../")
 
