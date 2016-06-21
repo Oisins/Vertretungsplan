@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import mock
 import unittest
-import os
 import VertretungPlan
-
-os.chdir("../")
 
 
 class TestVertretungPlan(unittest.TestCase):
