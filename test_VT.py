@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+
+#
+# (c) 2016 Oisín Smith All Rights Reserved
+#
+
 import mock
 import unittest
 import VertretungPlan

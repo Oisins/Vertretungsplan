@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
-from bs4 import BeautifulSoup
+
+#
+# (c) 2016 Oisín Smith All Rights Reserved
+#
+
 import re
 import json
+from bs4 import BeautifulSoup
+from upload import Uploader
+
+OUTPUT_FILE = "vt.json"
 
 
 def main():
@@ -31,15 +39,14 @@ def main():
             change[1] = change[1].strip()
             changes[key] = change
 
-        print()
-
         if cls not in output.keys():
             output[cls] = []
         output[cls].append(changes)
 
-    with open("vt.json", "w") as file:
+    with open(OUTPUT_FILE, "w") as file:
         file.write(json.dumps(output))
+
+    Uploader("", OUTPUT_FILE, "")
 
 if __name__ == "__main__":
     main()
-
