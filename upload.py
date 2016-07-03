@@ -30,6 +30,8 @@ class Uploader:
         if self.fileDir:
             os.chdir(self.fileDir)
 
+        print(os.curdir)
+
         files = {'file': open(self.fileName, "rb")}
         req = requests.post(self.url, files=files)
 
