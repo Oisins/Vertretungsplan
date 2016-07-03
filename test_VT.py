@@ -17,7 +17,7 @@ class TestVertretungPlan(unittest.TestCase):
 
         self.expected_room = '{"2a": [{"1. Stunde": ["En", "Ge R220"]}]}'
         self.expected_no_room = '{"2a": [{"1. Stunde": ["En", "Aufgaben"]}]}'
-        Uploader = mock.MagicMock()
+        VertretungPlan.Uploader = mock.MagicMock()
 
     def test_with_room(self):
         m = mock.mock_open(read_data=self.room)
