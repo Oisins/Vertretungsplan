@@ -14,8 +14,8 @@ class TestVertretungPlan(unittest.TestCase):
     def setUp(self):
         logging.disable(logging.CRITICAL)  # Disable Logging
 
-        self.room = open("tests/test_VT_room.html", "rb").read()
-        self.no_room = open("tests/test_VT_no_room.html", "rb").read()
+        self.room = open("tests/test_VT_room.html", "r", encoding="utf8").read()
+        self.no_room = open("tests/test_VT_no_room.html", "r", encoding="utf8").read()
 
         self.expected_room = json.loads('{"date": "2016-03-11 00:00:00", '
                                         '"data": {"2a": [{"1. Stunde": ["En", "Ge R220"]}]}, '
@@ -47,7 +47,9 @@ class TestVertretungPlan(unittest.TestCase):
         """
         open_mock = mock_open(read_data=input_file)
 
-        print(input_file)
+        with open("DI.htm") as f:
+            print(type(f.read()))
+        # print(input_file)
         dump = args[1]  # Json Dumps Mock
 
         with patch('builtins.open', open_mock, create=True):  # Mock open()
