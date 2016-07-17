@@ -26,11 +26,8 @@ class Uploader:
         Take Staged File und send POST request
         :return:
         """
-        # print("NOW UPLOADING: " + self.fileName)
         if self.fileDir:
             os.chdir(self.fileDir)
-
-        print(os.curdir)
 
         files = {'file': open(self.fileName, "rb")}
         req = requests.post(self.url, files=files)
