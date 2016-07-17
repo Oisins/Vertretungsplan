@@ -40,6 +40,7 @@ def main():
     table = table_soup.find_all("tr")[2:-2]
 
     date_for_soup = soup.find_all("h2")[0].contents[0]
+    print(date_for_soup)
     date_for = re.search(r"Vertretungsplan für Freitag (\d\d\. \w+ \d\d\d\d)", date_for_soup).group(1)
 
     date_created_soup = soup.find_all("h3")[0].contents[0]
