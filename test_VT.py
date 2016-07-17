@@ -47,6 +47,7 @@ class TestVertretungPlan(unittest.TestCase):
         """
         open_mock = mock_open(read_data=input_file)
 
+        print(input_file)
         dump = args[1]  # Json Dumps Mock
 
         with patch('builtins.open', open_mock, create=True):  # Mock open()
