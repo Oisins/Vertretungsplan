@@ -24,7 +24,7 @@ logging.basicConfig(filename=LOG_FILE,
 
 
 def main():
-    locale.setlocale(locale.LC_ALL, '')  # Set Locale to german
+    locale.setlocale(locale.LC_ALL, 'German_Germany.1252')  # Set Locale to german
     logging.debug("Localization is {}".format(locale.getlocale()[0]))
 
     files = [file for file in os.listdir(".") if file.endswith(".htm")]  # List all files ending with .htm
