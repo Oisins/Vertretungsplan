@@ -36,22 +36,26 @@ class TestVertretungPlan(unittest.TestCase):
     def test_without_room(self):
         self.run_mock(self.no_room, self.expected_no_room)
 
-    def run_mock(self, input_file, expected):
+    def run_mock(self, dump, input_file, expected):
         """
         Takes a Mock file, runs the VT Program and then compared the results
         :param input_file: Mock of file to be processed
         :param expected: Expected Json output
         :return:
         """
-        m = mock.mock_open(read_data=input_file)
-        with mock.patch('builtins.open', m, create=True):  # Mock open()
-            with mock.patch('json.dumps') as dump:  # Mock json.dumps()
-                VertretungPlan.main()
+        mock_open = mock.mock_open(read_data=input_file)
+        mock_listdir = mock.MagicMock(return_value=["File.htm"])
 
-                call_args, call_kwargs = dump.call_args  # args and keyword_args from Mock call
-                output = str(call_args[0]).replace("\'", "\"")  # format Json
+        with mock.patch('os.listdir', mock_listdir):
+            with mock.patch('builtins.open', mock_open, create=True):  # Mock open()
+                with mock.patch('json.dumps') as dump:  # Mock json.dumps()
 
-                self.assertEqual(json.loads(output), expected)
+                    VertretungPlan.main()
+
+                    call_args, call_kwargs = dump.call_args  # args and keyword_args from Mock call
+                    output = str(call_args[0]).replace("\'", "\"")  # format Json
+
+                    self.assertEqual(json.loads(output), expected)
 
 
 if __name__ == '__main__':
