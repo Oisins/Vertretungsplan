@@ -7,7 +7,7 @@ import json
 import logging
 import os
 import locale
-from Config import Config
+from config import Config
 from datetime import datetime
 from bs4 import BeautifulSoup
 from upload import Uploader
