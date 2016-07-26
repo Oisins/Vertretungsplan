@@ -5,7 +5,7 @@ python:
 install: "pip install -r requirements.txt"
 # command to run tests
 script:
-  - python tests/test_VT.py
-  - python tests/test_config.py
+  - python test_VT.py
+  - python test_config.py
 before_install:
   - sudo apt-get --reinstall install -qq language-pack-de
