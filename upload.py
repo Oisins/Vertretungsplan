@@ -21,18 +21,15 @@ class Uploader:
         self.fileDir = filedir
         self.url = url
 
-    def send_post(self):
+    def post(self):
         """
         Take Staged File und send POST request
         :return:
         """
-        # print("NOW UPLOADING: " + self.fileName)
         if self.fileDir:
             os.chdir(self.fileDir)
 
-        print(os.curdir)
-
         files = {'file': open(self.fileName, "rb")}
-        req = requests.post(self.url, files=files)
+        response = requests.post(self.url, files=files)
 
-        return req.status_code == requests.codes.ok
+        return response.status_code, response.text
