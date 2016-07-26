@@ -9,3 +9,4 @@ script:
   - python tests/test_config.py
 before_install:
   - sudo apt-get update && sudo apt-get --reinstall install -qq language-pack-de
+  - cd ..
