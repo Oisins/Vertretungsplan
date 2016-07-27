@@ -21,26 +21,27 @@ UPLOAD_URL = "http://www.oisinsmith.eu/Uploader/upload.php"
 def main():
     config = Config("einstellungen.conf")
     config.load()
-    # config.check(["file", "log", "url"])
 
-    logging.basicConfig(filename=config.get("file", LOG_FILE),
+    logging.basicConfig(filename=config.get("log", LOG_FILE),
                         filemode='a',
                         format='%(asctime)s %(levelname)s: %(message)s',
                         datefmt='%H:%M:%S',
                         level=logging.DEBUG)
+
+    logger = logging.getLogger()
 
     try:  # Set Locale to german
         locale.setlocale(locale.LC_ALL, "deu_deu")  # Windows lang code
     except locale.Error:
         locale.setlocale(locale.LC_ALL, 'de_DE.utf8')  # Unix lang code
 
-    logging.debug("Localization is {}".format(locale.getlocale()[0]))
+    logger.debug("Localization is {}".format(locale.getlocale()[0]))
 
     files = [file for file in os.listdir(".") if file.endswith(".htm")]  # List all files ending with .htm
     files.sort(key=lambda x: os.path.getmtime(x))  # Get the newest file
     latest_file = files[-1]
 
-    logging.info("Latest File is %s" % latest_file)
+    logger.info("Latest File is %s" % latest_file)
 
     with open(latest_file) as file:
         soup = BeautifulSoup(file.read(), 'html.parser')  # Parse HTML File with bs4
@@ -77,7 +78,7 @@ def main():
 
         output.setdefault(cls, []).append(changes)  # Append to output list. If list doesn't exist create new
 
-    logging.info("Found " + str(len(table)) + " Item(s)")
+    logger.info("Found " + str(len(table)) + " Item(s)")
 
     output = {"date": str(datetime_for), "created": str(datetime_created), "data": output}
 
@@ -91,9 +92,6 @@ def main():
 
 if __name__ == "__main__":
     try:
-        logging.info("Program Started")
         main()
-        logging.info("Finished\n")
     except Exception as e:
-        logging.exception("Exception")
         raise e

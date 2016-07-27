@@ -40,7 +40,7 @@ class TestVertretungPlan(unittest.TestCase):
     @patch("os.path", MagicMock())  # Mock os.path
     @patch("os.listdir", MagicMock(return_value=["File.htm"]))  # Mock os.listdir
     @patch("VertretungPlan.Config", MagicMock())
-    def run_mock(self, input_file, dump, expected):
+    def run_mock(self, input_file, expected, dump):
         """
         Takes a Mock file, runs the VT Program and then compared the results
         :param input_file: Mock of file to be processed
