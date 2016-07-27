@@ -21,7 +21,7 @@ class TestVertretungPlan(unittest.TestCase):
     def test_get(self):
         test_dict = {'log': 'ABC', 'file': 'test.txt', 'Item': 'ABC', 'url': 'http://www.test.org'}
 
-        with patch('Config.open', mock_open(read_data=json.dumps(test_dict)), create=True):
+        with patch('config.open', mock_open(read_data=json.dumps(test_dict)), create=True):
             conf = config.Config("test.txt")
             for key, value in test_dict.items():
                 self.assertEqual(value, conf.get(key))  # Test every value in dict
