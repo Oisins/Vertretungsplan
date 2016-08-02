@@ -14,7 +14,7 @@ from upload import Uploader
 
 
 OUTPUT_FILE = "vt.json"
-LOG_FILE = "latest.log"
+LOG_FILE = "./latest.log"
 UPLOAD_URL = "http://www.oisinsmith.eu/Uploader/upload.php"
 
 
