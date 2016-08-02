@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 #
 # (c) 2016 Oisín Smith All Rights Reserved
@@ -40,7 +39,7 @@ class TestVertretungPlan(unittest.TestCase):
     @patch("os.path", MagicMock())  # Mock os.path
     @patch("os.listdir", MagicMock(return_value=["File.htm"]))  # Mock os.listdir
     @patch("VertretungPlan.Config", MagicMock())
-    def run_mock(self, input_file, expected, dump):
+    def run_mock(self, input_file, expected, json_dumps):
         """
         Takes a Mock file, runs the VT Program and then compared the results
         :param input_file: Mock of file to be processed
@@ -53,7 +52,7 @@ class TestVertretungPlan(unittest.TestCase):
 
             VertretungPlan.main()
 
-            call_args, call_kwargs = dump.call_args  # args and keyword_args from Mock call
+            call_args, call_kwargs = json_dumps.call_args  # args and keyword_args from Mock call
             output = str(call_args[0]).replace("\'", "\"")  # format Json
 
             self.assertEqual(json.loads(output), expected)

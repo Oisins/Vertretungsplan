@@ -19,7 +19,8 @@ UPLOAD_URL = "http://www.oisinsmith.eu/Uploader/upload.php"
 
 
 def main():
-    config = Config("einstellungen.conf")
+    config = Config("config.json")
+    config.check("log", "file", "url")
     config.load()
 
     logging.basicConfig(filename=config.get("log", LOG_FILE),
@@ -90,8 +91,7 @@ def main():
     u = Uploader(output_file, None, config.get("url", UPLOAD_URL))
     u.post()
 
+    logger.debug("")
+
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        raise e
+    main()
