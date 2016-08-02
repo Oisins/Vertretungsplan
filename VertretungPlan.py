@@ -23,6 +23,7 @@ def main():
     config.check("log", "file", "url")
     config.load()
 
+    print(config.get("log", LOG_FILE))
     logging.basicConfig(filename=config.get("log", LOG_FILE),
                         filemode='a',
                         format='%(asctime)s %(levelname)s: %(message)s',
