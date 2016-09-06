@@ -1,3 +1,4 @@
 beautifulsoup4
 mock
 requests
+cx_Freeze

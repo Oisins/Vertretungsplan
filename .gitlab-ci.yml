@@ -1,0 +1,16 @@
+stages:
+- test
+- package
+
+test_job:
+  stage: test
+  script:
+  - python test_VT.py
+  - python test_config.py
+
+package:
+  stage: package
+  script: tar -zcvf packaged.tar.gz exe.win-amd64-3.5/
+  artifacts:
+    paths:
+    - packaged.gz

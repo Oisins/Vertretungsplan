@@ -8,6 +8,7 @@ import unittest
 import VertretungPlan
 import logging
 import json
+import config
 
 
 class TestVertretungPlan(unittest.TestCase):
@@ -24,6 +25,9 @@ class TestVertretungPlan(unittest.TestCase):
         self.expected_no_room = json.loads('{"date": "2016-03-11 00:00:00", '
                                            '"data": {"2a": [{"1. Stunde": ["En", "Aufgaben"]}]}, '
                                            '"created": "2016-03-10 08:25:00"}')
+
+        self.config = {"log": "", "file": "", "url": ""}
+
         VertretungPlan.Uploader = MagicMock()
 
     def tearDown(self):
@@ -38,7 +42,6 @@ class TestVertretungPlan(unittest.TestCase):
     @patch("json.dumps")  # Mock json.dumps
     @patch("os.path", MagicMock())  # Mock os.path
     @patch("os.listdir", MagicMock(return_value=["File.htm"]))  # Mock os.listdir
-    @patch("VertretungPlan.Config", MagicMock())
     def run_mock(self, input_file, expected, json_dumps):
         """
         Takes a Mock file, runs the VT Program and then compared the results
@@ -49,13 +52,13 @@ class TestVertretungPlan(unittest.TestCase):
         open_mock = mock_open(read_data=input_file)
 
         with patch('VertretungPlan.open', open_mock, create=True):  # Mock open()
+            with patch("config.open", mock_open(read_data=json.dumps(self.config))):
+                VertretungPlan.main()
 
-            VertretungPlan.main()
+                call_args, call_kwargs = json_dumps.call_args  # args and keyword_args from Mock call
+                output = str(call_args[0]).replace("\'", "\"")  # format Json
 
-            call_args, call_kwargs = json_dumps.call_args  # args and keyword_args from Mock call
-            output = str(call_args[0]).replace("\'", "\"")  # format Json
-
-            self.assertEqual(json.loads(output), expected)
+                self.assertEqual(json.loads(output), expected)
 
 
 if __name__ == '__main__':
